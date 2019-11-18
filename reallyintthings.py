@@ -43,7 +43,7 @@ def make_test_set(test_file_name): #делаем список тестируем
         d.append(m)
         i+=1      
     return d
-def classify_test_set_list(test_set_list, classifier_list): #собственно, сверяем значения каждого параметра с эталонными
+def classify_test_set_list(test_set_list, classifier_list): #собственно, сверяем значения каждого параметра с эталонными (совсем не очевидная часть, скорее всего)
     a=0
     for i in range (0,100):
         b=0
