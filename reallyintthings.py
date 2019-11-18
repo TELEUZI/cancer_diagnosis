@@ -1,4 +1,4 @@
-def make_training_set(training_file_name):
+def make_training_set(training_file_name): #из файла с пациентами разделяем каждого пациента и их характеристики и собираем в список d (там 599 пациентов)
     f=open(training_file_name)
     k=f.read().split("\n")
     i=0
@@ -8,7 +8,7 @@ def make_training_set(training_file_name):
         d.append(m)
         i+=1      
     return d
-def train_classifier(training_set_list):
+def train_classifier(training_set_list): #считаем средние значения каждого параметра для больных и для здоровых, а после их среднее арифметическое
     a=[]
     k=0
     while k<=9:
@@ -33,7 +33,7 @@ def train_classifier(training_set_list):
         a.append(z)
         k+=1
     return a
-def make_test_set(test_file_name):
+def make_test_set(test_file_name): #делаем список тестируемых поцынтов (их 100)
     f=open(test_file_name)
     k=f.read().split("\n")
     i=0
@@ -43,7 +43,7 @@ def make_test_set(test_file_name):
         d.append(m)
         i+=1      
     return d
-def classify_test_set_list(test_set_list, classifier_list):
+def classify_test_set_list(test_set_list, classifier_list): #собственно, сверяем значения каждого параметра с эталонными
     a=0
     for i in range (0,100):
         b=0
@@ -58,7 +58,7 @@ def classify_test_set_list(test_set_list, classifier_list):
                 test_set_list[i][11]='4'
             k+=1
     return test_set_list
-def report_results(result_list):
+def report_results(result_list): # выводим результаты
     a=0
     i=0
     for i in range (0,100):
@@ -69,7 +69,7 @@ def report_results(result_list):
             print("Patient number {}: predicted tumor type is {}, real tumor type isn't the same.".format(result_list[i][0], result_list[i][10] ))
     print ("Accuracy equals to {}.".format(a))
     print ("Reported the results.")
-def main():
+def main(): #вызываем здесь функции
     print("Reading in training data...")
     training_file_name="1.txt"
     training_set_list=make_training_set(training_file_name)
