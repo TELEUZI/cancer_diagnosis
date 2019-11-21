@@ -1,51 +1,46 @@
-def make_training_set(training_file_name): #из файла с пациентами разделяем каждого пациента и их характеристики и собираем в список d (там 599 пациентов)
+def make_training_set(training_file_name):
     f=open(training_file_name)
     k=f.read().split("\n")
     i=0
     d=[]
-    while i<=598:
+    while i<=len(k)-1:
         m=k[i].split(",")
         d.append(m)
         i+=1      
     return d
-def train_classifier(training_set_list): #считаем средние значения каждого параметра для больных и для здоровых, а после их среднее арифметическое
+def train_classifier(training_set_list):
     a=[]
     k=0
     while k<=9:
-        s=0
-        s1=0
-        n=0
-        n1=0
-        f=0
-        f1=0
-        for i in range (0,599):
+        sum_2, num_2, mean_2=0,0,0
+        sum_4, num_4, mean_4=0,0,0
+        for i in range (0,len(training_set_list)):
             if training_set_list[i][10]=="2":
                 if training_set_list[i][k]!='?':
-                    s+=int(training_set_list[i][k])
-                    n+=1
-                    f=s/n
+                    sum_2+=int(training_set_list[i][k])
+                    num_2+=1
+                    mean_2=sum_2/num_2
             elif training_set_list[i][10]=="4":
                 if training_set_list[i][k]!='?':
-                    s1+=int(training_set_list[i][k])
-                    n1+=1
-                    f1=s1/n1
-        z=(f+f1)/2
+                    sum_4+=int(training_set_list[i][k])
+                    num_4+=1
+                    mean_4=sum_4/num_4
+        z=(mean_2+mean_4)/2
         a.append(z)
         k+=1
     return a
-def make_test_set(test_file_name): #делаем список тестируемых поцынтов (их 100)
+def make_test_set(test_file_name):
     f=open(test_file_name)
     k=f.read().split("\n")
     i=0
     d=[]
-    while i<=99:
+    while i<=len(k)-1:
         m=k[i].split(",")
         d.append(m)
         i+=1      
     return d
-def classify_test_set_list(test_set_list, classifier_list): #собственно, сверяем значения каждого параметра с эталонными (совсем не очевидная часть, скорее всего)
-    a=0
-    for i in range (0,100):
+def classify_test_set_list(test_set_list, classifier_list):
+    for i in range (0,len(test_set_list)):
         b=0
         k=1
         test_set_list[i].append('0')
@@ -58,27 +53,27 @@ def classify_test_set_list(test_set_list, classifier_list): #собственн�
                 test_set_list[i][11]='4'
             k+=1
     return test_set_list
-def report_results(result_list): # выводим результаты
-    a=0
+def report_results(result_list):
+    accuracy=0
     i=0
-    for i in range (0,100):
+    for i in range (0,len(result_list)):
         if (result_list[i][10]==result_list[i][11]=='2')|(result_list[i][10]==result_list[i][11]=='4'):           
-            a+=1
+            accuracy+=1
             print("Patient number {}: predicted tumor type is {}, real tumor type is the same.".format(result_list[i][0], result_list[i][10] ))
         elif (result_list[i][10]!=result_list[i][11]): 
             print("Patient number {}: predicted tumor type is {}, real tumor type isn't the same.".format(result_list[i][0], result_list[i][10] ))
-    print ("Accuracy equals to {}.".format(a))
+    print ("Accuracy equals to {}%.".format(accuracy))
     print ("Reported the results.")
-def main(): #вызываем здесь функции
+def main():
     print("Reading in training data...")
-    training_file_name="1.txt"
+    training_file_name="training_data.txt"
     training_set_list=make_training_set(training_file_name)
     print("Done reading training data. \n")
     print ("Training classifier")
     classifier_list=train_classifier(training_set_list)
     print ("Done training classifier. \n")
     print ("Reading in test data...")
-    test_file_name="2.txt"
+    test_file_name="testing_data.txt"
     test_set_list=make_test_set(test_file_name)
     print("Done reading test data. \n")
     print("Classifying records...")
