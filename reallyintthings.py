@@ -1,15 +1,15 @@
 def make_training_set(training_file_name):
     f=open(training_file_name)
-    k=f.read().split("\n")
+    patient_chars=f.read().split("\n")
     i=0
-    d=[]
-    while i<=len(k)-1:
-        m=k[i].split(",")
-        d.append(m)
+    training_set=[]
+    while i<=len(patient_chars)-1:
+        char=patient_chars[i].split(",")
+        training_set.append(char)
         i+=1      
-    return d
+    return training_set
 def train_classifier(training_set_list):
-    a=[]
+    clasifier_list=[]
     k=0
     while k<=9:
         sum_2, num_2, mean_2=0,0,0
@@ -25,20 +25,20 @@ def train_classifier(training_set_list):
                     sum_4+=int(training_set_list[i][k])
                     num_4+=1
                     mean_4=sum_4/num_4
-        z=(mean_2+mean_4)/2
-        a.append(z)
+        discr_value=(mean_2+mean_4)/2
+        clasifier_list.append(discr_value)
         k+=1
-    return a
+    return clasifier_list
 def make_test_set(test_file_name):
     f=open(test_file_name)
-    k=f.read().split("\n")
+    patient_chars=f.read().split("\n")
     i=0
-    d=[]
-    while i<=len(k)-1:
-        m=k[i].split(",")
-        d.append(m)
+    test_set=[]
+    while i<=len(patient_chars)-1:
+        char=patient_chars[i].split(",")
+        test_set.append(char)
         i+=1      
-    return d
+    return test_set
 def classify_test_set_list(test_set_list, classifier_list):
     for i in range (0,len(test_set_list)):
         b=0
