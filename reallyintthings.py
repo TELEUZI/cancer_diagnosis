@@ -125,7 +125,6 @@ def main():
             "Mitoses"]
             training_file_name="all_data.txt"
             training_set_list=make_training_set(training_file_name)
-            print("Done reading training data. \n")
             print ("Training classifier")
             classifier_list=train_classifier(training_set_list)
             k=[]
