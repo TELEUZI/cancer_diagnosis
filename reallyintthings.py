@@ -60,8 +60,14 @@ def report_results(result_list):
         if (result_list[i][10]==result_list[i][11]=='2')|(result_list[i][10]==result_list[i][11]=='4'):           
             accuracy+=1
             print("Patient number {}: predicted tumor type is {}, real tumor type is the same.".format(result_list[i][0], result_list[i][10] ))
-        elif (result_list[i][10]!=result_list[i][11]): 
-            print("Patient number {}: predicted tumor type is {}, real tumor type isn't the same.".format(result_list[i][0], result_list[i][10] ))
+        elif ((result_list[i][10]!=result_list[i][11])): 
+            print("Patient number {}: predicted tumor type is {}, real tumor type isn't the same.".format(result_list[i][0], result_list[i][11]))
+            print("In spite of high", end=" ")
+            for k in range(12,len(result_list[i])):
+                if k==len(result_list[i])-1:
+                    print(result_list[i][k], end="\n")
+                else:
+                    print(result_list[i][k], end=", ")
     print ("Accuracy equals to {}%.".format(accuracy))
     print ("Reported the results.")
 def main():
