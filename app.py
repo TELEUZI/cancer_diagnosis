@@ -110,10 +110,10 @@ def report_results(result_list):
 
 
 def submain():
-    training_file_name = "training_data.txt"
+    training_file_name = "data/training_data.txt"
     training_set_list = make_training_set(training_file_name)
     classifier_list = train_classifier(training_set_list)
-    test_file_name = "testing_data.txt"
+    test_file_name = "data/testing_data.txt"
     test_set_list = make_test_set(test_file_name)
     result_list = classify_test_set_list(test_set_list, classifier_list)
     report_results(result_list)
@@ -144,7 +144,7 @@ def main():
                 "Normal Nucleoli",
                 "Mitoses"
             ]
-            training_file_name = "all_data.txt"
+            training_file_name = "data/all_data.txt"
             training_set_list = make_training_set(training_file_name)
             print("Training classifier")
             classifier_list = train_classifier(training_set_list)
